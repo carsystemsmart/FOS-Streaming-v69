@@ -5,13 +5,13 @@ apt-get install ca-certificates apt-transport-https -y
 wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
 echo "deb https://packages.sury.org/php/ stretch main" | sudo tee /etc/apt/sources.list.d/php.list
 apt-get update -y; apt-get upgrade -y;
-apt install -y php7.3 php7.3-cgi php7.3-bcmath php7.3-bz2 php7.3-cli php7.3-common php7.3-curl php7.3-dba php7.3-dev php7.3-enchant php7.3-fpm php7.3-gd php7.3-gmp php7.3-imap php7.3-interbase php7.3-intl php7.3-json php7.3-ldap php7.3-mbstring php7.3-mysql php7.3-odbc php7.3-opcache php7.3-pgsql php7.3-phpdbg php7.3-pspell php7.3-readline php7.3-recode php7.3-snmp php7.3-soap php7.3-sqlite3 php7.3-sybase php7.3-tidy php7.3-xml php7.3-xmlrpc php7.3-xsl php7.3-zip
-curl -s https://raw.githubusercontent.com/theraw/web-pro/master/plus/php/7.3/fpm/www.conf > /etc/php/7.3/fpm/pool.d/www.conf
-ex -sc '%s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g|x' /etc/php/7.3/fpm/php.ini
+apt install -y php php-cgi php-bcmath php-bz2 php-cli php-common php-curl php-dba php-dev php-enchant php-fpm php-gd php-gmp php-imap php-interbase php-intl php-json php-ldap php-mbstring php-mysql php-odbc php-opcache php-pgsql php-phpdbg php-pspell php-readline php-recode php-snmp php-soap php-sqlite3 php-sybase php-tidy php-xml php-xmlrpc php-xsl php-zip
+curl -s https://raw.githubusercontent.com/theraw/web-pro/master/plus/php/7.0/fpm/www.conf > /etc/php/7.0/fpm/pool.d/www.conf
+ex -sc '%s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g|x' /etc/php/7.0/fpm/php.ini
 ex -sc '%s/output_buffering = 4096/output_buffering = Off/g|x' /etc/php/7.3/fpm/php.ini
-perl -pi -e 's/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/g' /etc/php/7.3/fpm/php.ini
-perl -pi -e 's/;error_log = syslog/error_log = php_error.log/g' /etc/php/7.3/fpm/php.ini
-perl -pi -e 's/;date.timezone =/date.timezone = UTC/g' /etc/php/7.3/fpm/php.ini
+perl -pi -e 's/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/g' /etc/php/7.0/fpm/php.ini
+perl -pi -e 's/;error_log = syslog/error_log = php_error.log/g' /etc/php/7.0/fpm/php.ini
+perl -pi -e 's/;date.timezone =/date.timezone = UTC/g' /etc/php/7.0/fpm/php.ini
 useradd nginx
 service php7.3-fpm restart
 apt-get install -y libxml2-dev libbz2-dev libcurl4-openssl-dev libmcrypt-dev libmhash2 libmhash-dev libpcre3 libpcre3-dev
@@ -71,8 +71,8 @@ ln -s /home/fos-streaming/fos/www/functions.php /home/fos-streaming/fos/www1/fun
 ln -s /home/fos-streaming/fos/www/stream.php /home/fos-streaming/fos/www1/stream.php
 ln -s /home/fos-streaming/fos/www/playlist.php /home/fos-streaming/fos/www1/playlist.php
 ln -sf /etc/alternatives/php /home/fos-streaming/fos/php/bin/php
-service php7.3-fpm stop
-service php7.3-fpm start
+service php7.0-fpm stop
+service php7.0-fpm start
 /home/fos-streaming/fos/nginx/sbin/nginx_fos
 curl -s http://127.0.0.1:7777/install_database_tables.php?install
 curl -s http://127.0.0.1:7777/install_database_tables.php?update
